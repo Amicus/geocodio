@@ -65,16 +65,12 @@ module Geocodio
     end
 
     def set_congressional_district(district)
-      return if district.empty?
-
-      @congressional_district = CongressionalDistrict.new(district)
+      @congressional_district = CongressionalDistrict.new(district) unless district.nil?
     end
 
     def set_legislative_districts(districts)
-      return if districts.empty?
-
-      @house_district = StateLegislativeDistrict.new(districts['house'])
-      @senate_district = StateLegislativeDistrict.new(districts['senate'])
+      @house_district = StateLegislativeDistrict.new(districts['house']) unless districts['house'].nil?
+      @senate_district = StateLegislativeDistrict.new(districts['senate']) unless districts['senate'].nil?
     end
 
     def set_school_districts(schools)
