@@ -89,7 +89,11 @@ module Geocodio
 
       def geocode_single(address, options = {})
         params, options = normalize_params_and_options(options)
-        params[:q] = address
+        if address.is_a?(String)
+          params[:q] = address
+        else
+          params.merge!((address || {}).slice(:street, :city, :state, :postal_code, :country))
+        end
 
         response  = get '/geocode', params, options
         addresses = parse_results(response)
